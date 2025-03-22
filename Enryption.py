@@ -37,12 +37,7 @@ def encrypt(message, shift):
                     new_index = 0
                 cipher = lista[new_index]
                 ciphertext.append(cipher)
-
-
-
         counter += 1
-
-
     formatted_string = "".join(ciphertext)
     #much_formatted = formatted_string.replace(" ", "")
     print(formatted_string)
