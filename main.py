@@ -49,7 +49,7 @@ def process_text():
         print("shift cipher")
         output = shift_encrypt(text, shift)
 
-        output_label.config(text=f"Result: {output}")
+        output_real_label.config(text=f"{output}")
 
 
 
