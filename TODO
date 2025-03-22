@@ -1,7 +1,12 @@
--make shift entry
-
--implement encrypt function
--implement decrypt function
--implement shift cipher
 -implement substitution cipher
+
+
+done:
+-implement decrypt function
+-special characters and spaces are now encrypted
 -input validation
+-add copy button to copy the text in a label
+
+-make shift entry
+-implement encrypt function
+-implement shift cipher
