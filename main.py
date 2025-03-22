@@ -80,7 +80,7 @@ def process_text():
     shift = shift_entry.get().strip()
 
     if not shift.isdigit():
-        output_real_label.config(text="Error: the shift must be an integer", fg="red")
+        output_real_label.config(text="Error: the shift must be a positive integer", fg="red")
         return
     else:
         shift = int(shift)
