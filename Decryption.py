@@ -1,12 +1,12 @@
-import string
+#import string
 #from enum import nonmember
-lista = list(string.ascii_uppercase + "0123456789")
+#lista = list(string.ascii_uppercase + "0123456789")
 
 
 
 
 # This is for the process of encrypting.
-def decrypt(message, shift):
+def decrypt(message, shift, lista):
     ciphertext = []
     counter = 0
     formatted_message = message.upper()
@@ -32,7 +32,7 @@ def decrypt(message, shift):
                 cipher = lista[new_index]
                 ciphertext.append(cipher)
             except IndexError:
-                new_index = (locate_index - shift) % 36
+                new_index = (locate_index - shift) % len(lista)
                 if new_index == 36:
                     new_index = 0
                 cipher = lista[new_index]
@@ -44,8 +44,9 @@ def decrypt(message, shift):
 
 
     formatted_string = "".join(ciphertext)
-    print(formatted_string)
+    return formatted_string
 
+"""
 def main():
     while True:
         try:
@@ -54,11 +55,8 @@ def main():
             decrypt(message, shift)
         except ValueError:
             print("Input Error: Numbers only!")
-
-
-
 main()
-
+"""
 
 
 

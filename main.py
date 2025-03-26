@@ -1,5 +1,10 @@
 import tkinter as tk
 import string
+import Substitution
+import Encryption
+import Decryption
+#from Encryption import encrypt
+#from Decryption import decrypt
 
 
 
@@ -10,68 +15,11 @@ def shift_cipher(message, shift, mode):
     formatted_message = message.upper()
     print("Mode: ", mode)
     if mode == "Encrypt":
-        for x in range(len(message)):
-            #Get each letter in message
-            per_letter = formatted_message[counter]
-
-
-            if per_letter not in lista:
-                ciphertext.append(per_letter)
-            else:
-                locate_index = lista.index(per_letter)
-
-                if shift < 0:
-                    new_index = locate_index + shift
-
-                else:
-                    new_index = locate_index + shift
-
-
-                try:
-                    cipher = lista[new_index]
-                    ciphertext.append(cipher)
-                except IndexError:
-                    new_index = (locate_index + shift) % len(lista)
-                    if new_index == 36:
-                        new_index = 0
-                    cipher = lista[new_index]
-                    ciphertext.append(cipher)
-            counter += 1
-        formatted_string = "".join(ciphertext)
-        #much_formatted = formatted_string.replace(" ", "")
-        return formatted_string
+         result = Encryption.encrypt(message, shift, lista)
+         return result
     elif mode == "Decrypt":
-        for x in range(len(message)):
-            # Get each letter in message
-            per_letter = formatted_message[counter]
-
-            if per_letter not in lista:
-                ciphertext.append(per_letter)
-            else:
-                locate_index = lista.index(per_letter)
-
-                if shift < 0:
-                    new_index = locate_index - shift
-
-                else:
-                    new_index = locate_index - shift
-
-                try:
-                    cipher = lista[new_index]
-                    ciphertext.append(cipher)
-                except IndexError:
-                    new_index = (locate_index - shift) % 36
-                    if new_index == 36:
-                        new_index = 0
-                    cipher = lista[new_index]
-                    ciphertext.append(cipher)
-
-            counter += 1
-
-        formatted_string = "".join(ciphertext)
-        return formatted_string
-
-
+        result = Decryption.decrypt(message, shift, lista)
+        return  result
 def process_text():
     text = message_text.get("1.0", "end-1c")
     mode = mode_var.get()
