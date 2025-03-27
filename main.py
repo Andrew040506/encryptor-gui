@@ -1,6 +1,6 @@
 import tkinter as tk
+from tkinter import messagebox
 import string
-import Substitution
 import Encryption
 import Decryption
 
@@ -92,8 +92,20 @@ def start_program():
     intro_frame.pack_forget()
     main_frame.pack()
 
+
+def show_info():
+    info_text = """A substitution cipher replaces each letter in the plaintext with a corresponding letter from a fixed key, creating a scrambled message that can only be decoded with the same key. For example, if 'A' maps to 'X' and 'B' maps to 'Y', the word 'HELLO' might become 'CZGGJ'. 
+    
+    A shift cipher, also known as a Caesar cipher, moves each letter forward or backward in the alphabet by a fixed number. For instance, with a shift of 3, 'HELLO' becomes 'KHOOR'. 
+    
+    Lastly, Morse code represents each letter using a series of dots and dashes, allowing messages to be transmitted as sound or light signals, such as 'HELLO' being encoded as '.... . .-.. .-.. ---'."""
+
+    messagebox.showinfo("Cipher Information", info_text)
+
 root = tk.Tk()
 root.geometry("400x500")
+root.title("Cipher app")
+
 
 intro_frame = tk.Frame(root)
 intro_title_label = tk.Label(intro_frame, text="MEOW", font=("Arial", 20), pady=10)
@@ -117,8 +129,11 @@ method_var = tk.StringVar(value="shift cipher")
 method_label = tk.Label(main_frame, text="Encryption method")
 method_label.grid(row=3, column=0, pady=5, columnspan=1)
 
-method_menu = tk.OptionMenu(main_frame, method_var, "shift cipher", "substitution cipher", "shift+substitute cipher")
+method_menu = tk.OptionMenu(main_frame, method_var, "shift cipher", "substitution cipher")
 method_menu.grid(row=3, column=1, columnspan=1, pady=5)
+
+info_button = tk.Button(main_frame, text="info", command=show_info)
+info_button.grid(row=3, column=2, pady=5, columnspan=1)
 
 shift_frame = tk.Frame(main_frame)
 shift_label = tk.Label(shift_frame, text="Shift")
