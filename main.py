@@ -26,6 +26,35 @@ def shift_cipher(message, shift, mode):
         return Decryption.decrypt(message, shift, lista)
 
 
+def substitution_cipher(message, mode, formatted_key):
+    alphabet = list(string.ascii_uppercase)
+    message = message.upper()
+
+    if mode == "Encrypt":
+        mapping = {alphabet[i]: formatted_key[i] for i in range(26)}
+    elif mode == "Decrypt":
+        mapping = {formatted_key[i]: alphabet[i] for i in range(26)}
+    else:
+        return "Invalid mode"
+
+    result = ""
+    for char in message:
+        if char in mapping:
+            result += mapping[char]
+        else:
+            result += char
+
+    return result
+
+
+def shift_substitute_cipher(message, shift, mode, formatted_key):
+
+    if mode == "Encrypt":
+        return Encryption.encrypt(message, shift, formatted_key)
+    elif mode == "Decrypt":
+        return Decryption.decrypt(message, shift, formatted_key)
+
+
 def process_text():
     text = message_text.get("1.0", "end-1c")
     mode = mode_var.get()
@@ -39,7 +68,16 @@ def process_text():
         shift = int(shift)
         output = shift_cipher(text, shift, mode)
     elif method == "substitution cipher":
-        output = "Substitution processing not implemented yet."
+        key_str = substitution_entry.get().strip().upper()
+        key_list = list(key_str)  # Convert string to a list of characters
+
+        if len(key_list) != 26 or not all(c.isalpha() for c in key_list) or len(set(key_list)) != 26:
+            output_real_label.config(text="Error: Key must be a list of 26 unique letters.", fg="red")
+            return
+        print("Substitution", text, mode, key_list)
+        output = substitution_cipher(text, mode, key_list)
+    elif method == "shift+substitute cipher":
+        pass
 
     output_real_label.config(text=f"{output}", fg="blue")
 
@@ -79,7 +117,7 @@ method_var = tk.StringVar(value="shift cipher")
 method_label = tk.Label(main_frame, text="Encryption method")
 method_label.grid(row=3, column=0, pady=5, columnspan=1)
 
-method_menu = tk.OptionMenu(main_frame, method_var, "shift cipher", "substitution cipher")
+method_menu = tk.OptionMenu(main_frame, method_var, "shift cipher", "substitution cipher", "shift+substitute cipher")
 method_menu.grid(row=3, column=1, columnspan=1, pady=5)
 
 shift_frame = tk.Frame(main_frame)
@@ -90,7 +128,9 @@ shift_entry.pack()
 
 substitution_frame = tk.Frame(main_frame)
 substitution_label = tk.Label(substitution_frame, text="Substitution key (A-Z)")
+substitution_entry = tk.Entry(substitution_frame)
 substitution_label.pack()
+substitution_entry.pack()
 
 process_button = tk.Button(main_frame, text="Encrypt/Decrypt", command=process_text)
 process_button.grid(row=6, column=0, columnspan=2, pady=10)
