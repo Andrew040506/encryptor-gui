@@ -4,7 +4,7 @@ import string
 import MorseCodePy
 import Encryption
 import Decryption
-
+import Gnilogo
 
 def update_gui(*args):
     method = method_var.get()
