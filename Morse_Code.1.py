@@ -3,6 +3,7 @@ from MorseCodePy import encode
 # gamitin mo tong code na toh chart(dot='·') para makita yung chart for conversion
 
 while True:
+
     message = input("\nInput a message: ")
     converted = encode(message, language='english')
     print(converted)

@@ -33,7 +33,7 @@ def decrypt(message, shift, lista):
                 ciphertext.append(cipher)
             except IndexError:
                 new_index = (locate_index - shift) % len(lista)
-                if new_index == 36:
+                if new_index == len(lista):
                     new_index = 0
                 cipher = lista[new_index]
                 ciphertext.append(cipher)

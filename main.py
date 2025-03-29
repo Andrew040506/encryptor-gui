@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import messagebox
 import string
+#import MorseCodePy
 import Encryption
 import Decryption
 
@@ -11,9 +12,9 @@ def update_gui(*args):
     shift_frame.grid_remove()
     substitution_frame.grid_remove()
 
-    if method == "shift cipher":
+    if method == "Shift cipher":
         shift_frame.grid(row=4, column=0, columnspan=2, pady=5, sticky="ew")
-    elif method == "substitution cipher":
+    elif method == "Substitution cipher":
         substitution_frame.grid(row=4, column=0, columnspan=2, pady=5, sticky="ew")
 
 
@@ -47,37 +48,39 @@ def substitution_cipher(message, mode, formatted_key):
     return result
 
 
-def shift_substitute_cipher(message, shift, mode, formatted_key):
-
+def morse_cipher(message, mode):
     if mode == "Encrypt":
-        return Encryption.encrypt(message, shift, formatted_key)
+        pass
+        #return MorseCodePy.encode(message, language='english')
     elif mode == "Decrypt":
-        return Decryption.decrypt(message, shift, formatted_key)
-
+        pass
+        #return MorseCodePy.decode(message, language='english')
+    else:
+        return "Invalid mode"
 
 def process_text():
     text = message_text.get("1.0", "end-1c")
     mode = mode_var.get()
     method = method_var.get()
     output = ""
-    if method == "shift cipher":
+    if method == "Shift cipher":
         shift = shift_entry.get().strip()
         if not shift.isdigit():
             output_real_label.config(text="Error: the shift must be a positive integer", fg="red")
             return
         shift = int(shift)
         output = shift_cipher(text, shift, mode)
-    elif method == "substitution cipher":
+    elif method == "Substitution cipher":
         key_str = substitution_entry.get().strip().upper()
-        key_list = list(key_str)  # Convert string to a list of characters
+        key_list = list(key_str)
 
         if len(key_list) != 26 or not all(c.isalpha() for c in key_list) or len(set(key_list)) != 26:
             output_real_label.config(text="Error: Key must be a list of 26 unique letters.", fg="red")
             return
         print("Substitution", text, mode, key_list)
         output = substitution_cipher(text, mode, key_list)
-    elif method == "shift+substitute cipher":
-        pass
+    elif method == "morse code":
+        output = morse_cipher(text, mode)
 
     output_real_label.config(text=f"{output}", fg="blue")
 
@@ -124,12 +127,12 @@ message_text = tk.Text(main_frame, height=4, width=25)
 message_text.grid(row=2, column=0, columnspan=2, pady=5)
 
 mode_var = tk.StringVar(value="Encrypt")
-method_var = tk.StringVar(value="shift cipher")
+method_var = tk.StringVar(value="Shift cipher")
 
 method_label = tk.Label(main_frame, text="Encryption method")
 method_label.grid(row=3, column=0, pady=5, columnspan=1)
 
-method_menu = tk.OptionMenu(main_frame, method_var, "shift cipher", "substitution cipher")
+method_menu = tk.OptionMenu(main_frame, method_var, "Shift cipher", "Substitution cipher",  "Morse code cipher")
 method_menu.grid(row=3, column=1, columnspan=1, pady=5)
 
 info_button = tk.Button(main_frame, text="info", command=show_info)
