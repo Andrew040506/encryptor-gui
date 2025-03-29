@@ -16,6 +16,8 @@ def update_gui(*args):
         shift_frame.grid(row=4, column=0, columnspan=2, pady=5, sticky="ew")
     elif method == "Substitution cipher":
         substitution_frame.grid(row=4, column=0, columnspan=2, pady=5, sticky="ew")
+    else:
+        print("invalid method")
 
 
 def shift_cipher(message, shift, mode):
@@ -25,6 +27,8 @@ def shift_cipher(message, shift, mode):
         return Encryption.encrypt(message, shift, lista)
     elif mode == "Decrypt":
         return Decryption.decrypt(message, shift, lista)
+    else:
+        return "Invalid mode"
 
 
 def substitution_cipher(message, mode, formatted_key):
