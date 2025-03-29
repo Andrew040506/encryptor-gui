@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import messagebox
 import string
-#import MorseCodePy
+import MorseCodePy
 import Encryption
 import Decryption
 
@@ -21,7 +21,7 @@ def update_gui(*args):
 
 
 def shift_cipher(message, shift, mode):
-    lista = list(string.ascii_uppercase + "0123456789!@#$%^&*()-=_+[]\{}|;':,./\"<>? ")
+    lista = list(string.ascii_uppercase + "0123456789!@#$%^&*()-=_+[]{}|;':,./\"<>? ")
 
     if mode == "Encrypt":
         return Encryption.encrypt(message, shift, lista)
@@ -54,13 +54,12 @@ def substitution_cipher(message, mode, formatted_key):
 
 def morse_cipher(message, mode):
     if mode == "Encrypt":
-        pass
-        #return MorseCodePy.encode(message, language='english')
+        return MorseCodePy.encode(message, language='english')
     elif mode == "Decrypt":
-        pass
-        #return MorseCodePy.decode(message, language='english')
+        return MorseCodePy.decode(message, language='english')
     else:
         return "Invalid mode"
+
 
 def process_text():
     text = message_text.get("1.0", "end-1c")
@@ -83,7 +82,7 @@ def process_text():
             return
         print("Substitution", text, mode, key_list)
         output = substitution_cipher(text, mode, key_list)
-    elif method == "morse code":
+    elif method == "Morse code cipher":
         output = morse_cipher(text, mode)
 
     output_real_label.config(text=f"{output}", fg="blue")
